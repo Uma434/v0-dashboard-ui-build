@@ -1,5 +1,4 @@
 import { DashboardHeader } from '@/components/dashboard-header';
-import { ProjectFilters } from '@/components/project-filters';
 import { ProjectCards } from '@/components/project-cards';
 
 export default function DashboardPage() {
@@ -19,12 +18,7 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        {/* Filter Buttons */}
-        <div className="mb-6 sm:mb-8">
-          <ProjectFilters />
-        </div>
-
-        {/* Project Cards */}
+        {/* Project Cards - includes filters */}
         <ProjectCards />
       </div>
     </main>

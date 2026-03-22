@@ -1,63 +1,103 @@
 'use client';
 
-import { ArrowRight, Calendar, Users } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowRight, Calendar, Radio, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 
+type FilterType = 'solo' | 'teams' | 'active' | 'completed' | 'disputed';
+
 export function ProjectCards() {
+  const [activeFilter, setActiveFilter] = useState<FilterType>('active');
+
+  const filters: Array<{ id: FilterType; label: string; icon?: React.ReactNode }> = [
+    { id: 'solo', label: 'Solo', icon: <Radio className="w-4 h-4" /> },
+    { id: 'teams', label: 'Teams', icon: <Users className="w-4 h-4" /> },
+    { id: 'active', label: 'Active' },
+    { id: 'completed', label: 'Completed' },
+    { id: 'disputed', label: 'Disputed' },
+  ];
+
   return (
     <div className="space-y-4 sm:space-y-6">
-      {/* Contracts Header with Search */}
-      <div className="space-y-3">
-        <h3 className="text-lg font-semibold text-foreground">Contracts</h3>
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div className="relative flex-1 max-w-sm">
-            <Input
-              placeholder="Search product"
-              className="pl-10 bg-input text-sm"
-            />
-            <svg
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-          </div>
-          <Button
-            variant="outline"
-            size="sm"
-            className="text-xs sm:text-sm"
-          >
-            Recent activity
-            <svg
-              className="w-4 h-4 ml-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 14l-7 7m0 0l-7-7m7 7V3"
-              />
-            </svg>
-          </Button>
+      {/* Main Container Card with Contracts Section */}
+      <div className="rounded-xl border border-border bg-card overflow-hidden">
+        {/* Contracts Header */}
+        <div className="px-4 sm:px-6 lg:px-8 py-4 sm:py-5 border-b border-border">
+          <h3 className="text-lg font-semibold text-foreground">Contracts</h3>
         </div>
-      </div>
 
-      {/* Project Card - Three Column Layout */}
-      <div className="rounded-lg border border-border bg-card overflow-hidden shadow-sm">
+        {/* Filters and Search Section */}
+        <div className="px-4 sm:px-6 lg:px-8 py-4 sm:py-5 space-y-4 border-b border-border">
+          {/* Filter Buttons */}
+          <div className="flex flex-wrap gap-2 sm:gap-3">
+            {filters.map((filter) => (
+              <Button
+                key={filter.id}
+                onClick={() => setActiveFilter(filter.id)}
+                variant={activeFilter === filter.id ? 'default' : 'outline'}
+                className={cn(
+                  'text-xs sm:text-sm font-medium transition-all flex items-center gap-1.5',
+                  activeFilter === filter.id
+                    ? 'bg-accent text-accent-foreground hover:bg-accent/90 border-accent'
+                    : 'bg-background text-foreground hover:bg-muted/50 border-border'
+                )}
+                size="sm"
+              >
+                {filter.icon}
+                {filter.label}
+              </Button>
+            ))}
+          </div>
+
+          {/* Search and Recent Activity */}
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="relative flex-1 max-w-sm">
+              <Input
+                placeholder="Search product"
+                className="pl-10 bg-input text-sm"
+              />
+              <svg
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              className="text-xs sm:text-sm"
+            >
+              Recent activity
+              <svg
+                className="w-4 h-4 ml-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                />
+              </svg>
+            </Button>
+          </div>
+        </div>
+
+        {/* Project Card - Three Column Layout */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0 divide-y sm:divide-y-0 sm:divide-x divide-border">
           {/* Brand Identity + Landing Page Card */}
           <Card className="border-0 rounded-none bg-transparent">
