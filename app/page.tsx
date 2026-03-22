@@ -1,5 +1,4 @@
 import { DashboardHeader } from '@/components/dashboard-header';
-import { ProjectFilters } from '@/components/project-filters';
 import { ProjectCards } from '@/components/project-cards';
 
 export default function DashboardPage() {
@@ -8,9 +7,9 @@ export default function DashboardPage() {
       <DashboardHeader />
 
       {/* Main Content */}
-      <div className="px-4 py-6 sm:px-6 lg:px-8">
+      <div className="px-4 py-8 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         {/* Page Header */}
-        <div className="space-y-2 mb-8">
+        <div className="space-y-2 mb-6 sm:mb-8">
           <h1 className="text-3xl sm:text-4xl font-bold text-balance text-foreground">
             Active Projects
           </h1>
@@ -19,12 +18,7 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        {/* Filter Buttons */}
-        <div className="mb-8">
-          <ProjectFilters />
-        </div>
-
-        {/* Project Cards */}
+        {/* Project Cards - includes filters */}
         <ProjectCards />
       </div>
     </main>

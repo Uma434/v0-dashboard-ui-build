@@ -1,18 +1,25 @@
 'use client';
 
-import { useState } from 'react';
-import { Search, Bell, Menu, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Search, Bell, Menu, X, Moon, Sun } from 'lucide-react';
+import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 
 export function DashboardHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const navItems = ['Home', 'Marketplace', 'Dashboard'];
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background">
+    <header className="sticky top-0 z-40 bg-background">
       {/* Top Bar */}
       <div className="flex items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
         {/* Logo */}
@@ -69,6 +76,21 @@ export function DashboardHeader() {
             <Search className="w-5 h-5" />
           </Button>
 
+          {/* Theme Toggle */}
+          {mounted && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            >
+              {theme === 'dark' ? (
+                <Sun className="w-5 h-5" />
+              ) : (
+                <Moon className="w-5 h-5" />
+              )}
+            </Button>
+          )}
+
           {/* Notification & Profile */}
           <Button
             variant="ghost"
@@ -101,16 +123,8 @@ export function DashboardHeader() {
         </div>
       </div>
 
-      {/* Mobile Search Bar */}
-      <div className="md:hidden border-t border-border px-4 py-3">
-        <div className="relative">
-          <Input
-            placeholder="Search here"
-            className="pl-10 bg-muted/50 text-sm"
-          />
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-        </div>
-      </div>
+      {/* Accent Divider Line */}
+      <div className="h-1 bg-accent"></div>
 
       {/* Mobile Navigation Menu */}
       {mobileMenuOpen && (
