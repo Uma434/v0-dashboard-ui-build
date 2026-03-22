@@ -25,76 +25,84 @@ export function ProjectCards() {
     <div className="space-y-4 sm:space-y-6">
       {/* Main Container Card with Contracts Section */}
       <div className="rounded-xl border border-border bg-card overflow-hidden">
-        {/* Contracts Header */}
+        {/* Contracts Header with Filters */}
         <div className="px-4 sm:px-6 lg:px-8 py-4 sm:py-5 border-b border-border">
-          <h3 className="text-lg font-semibold text-foreground">Contracts</h3>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <h3 className="text-lg font-semibold text-foreground">Contracts</h3>
+            
+            {/* Filter Buttons */}
+            <div className="flex flex-wrap gap-2">
+              {filters.map((filter) => {
+                const isActive = activeFilter === filter.id;
+                const isSoloOrTeams = filter.id === 'solo' || filter.id === 'teams';
+                
+                return (
+                  <Button
+                    key={filter.id}
+                    onClick={() => setActiveFilter(filter.id)}
+                    variant={isSoloOrTeams ? (isActive ? 'default' : 'outline') : 'default'}
+                    className={cn(
+                      'text-xs sm:text-sm font-medium transition-all flex items-center gap-1',
+                      isSoloOrTeams ? (
+                        isActive
+                          ? 'bg-accent text-accent-foreground border border-accent hover:bg-accent/90'
+                          : 'bg-background text-foreground border border-border hover:bg-muted/30'
+                      ) : (
+                        'bg-accent text-accent-foreground hover:bg-accent/90'
+                      )
+                    )}
+                    size="sm"
+                  >
+                    {filter.icon}
+                    {filter.label}
+                  </Button>
+                );
+              })}
+            </div>
+          </div>
         </div>
 
-        {/* Filters and Search Section */}
-        <div className="px-4 sm:px-6 lg:px-8 py-4 sm:py-5 space-y-4 border-b border-border">
-          {/* Filter Buttons */}
-          <div className="flex flex-wrap gap-2 sm:gap-3">
-            {filters.map((filter) => (
-              <Button
-                key={filter.id}
-                onClick={() => setActiveFilter(filter.id)}
-                variant={activeFilter === filter.id ? 'default' : 'outline'}
-                className={cn(
-                  'text-xs sm:text-sm font-medium transition-all flex items-center gap-1.5',
-                  activeFilter === filter.id
-                    ? 'bg-accent text-accent-foreground hover:bg-accent/90 border-accent'
-                    : 'bg-background text-foreground hover:bg-muted/50 border-border'
-                )}
-                size="sm"
-              >
-                {filter.icon}
-                {filter.label}
-              </Button>
-            ))}
-          </div>
-
-          {/* Search and Recent Activity */}
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="relative flex-1 max-w-sm">
-              <Input
-                placeholder="Search product"
-                className="pl-10 bg-input text-sm"
-              />
-              <svg
-                className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </div>
-            <Button
-              variant="outline"
-              size="sm"
-              className="text-xs sm:text-sm"
+        {/* Search and Recent Activity Section */}
+        <div className="px-4 sm:px-6 lg:px-8 py-4 sm:py-5 border-b border-border flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+          <div className="relative flex-1 max-w-md">
+            <Input
+              placeholder="Search product"
+              className="pl-10 bg-input text-sm"
+            />
+            <svg
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              Recent activity
-              <svg
-                className="w-4 h-4 ml-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                />
-              </svg>
-            </Button>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
           </div>
+          <Button
+            variant="outline"
+            size="sm"
+            className="text-xs sm:text-sm whitespace-nowrap"
+          >
+            Recent activity
+            <svg
+              className="w-4 h-4 ml-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"
+              />
+            </svg>
+          </Button>
         </div>
 
         {/* Project Card - Three Column Layout */}
