@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 type FilterType = 'solo' | 'teams' | 'active' | 'completed' | 'disputed';
 
 export function ProjectCards() {
-  const [activeFilter, setActiveFilter] = useState<FilterType>('active');
+  const [activeFilter, setActiveFilter] = useState<FilterType>('teams');
 
   const filters: Array<{ id: FilterType; label: string; icon?: React.ReactNode }> = [
     { id: 'solo', label: 'Solo', icon: <Radio className="w-4 h-4" /> },
@@ -33,23 +33,18 @@ export function ProjectCards() {
             {/* Filter Buttons */}
             <div className="flex flex-wrap gap-2">
               {filters.map((filter) => {
-                const isActive = activeFilter === filter.id;
                 const isSoloOrTeams = filter.id === 'solo' || filter.id === 'teams';
                 
                 return (
                   <Button
                     key={filter.id}
                     onClick={() => setActiveFilter(filter.id)}
-                    variant={isSoloOrTeams ? (isActive ? 'default' : 'outline') : 'default'}
+                    variant={isSoloOrTeams ? 'outline' : 'default'}
                     className={cn(
                       'text-xs sm:text-sm font-medium transition-all flex items-center gap-1',
-                      isSoloOrTeams ? (
-                        isActive
-                          ? 'bg-accent text-accent-foreground border border-accent hover:bg-accent/90'
-                          : 'bg-background text-foreground border border-border hover:bg-muted/30'
-                      ) : (
-                        'bg-accent text-accent-foreground hover:bg-accent/90'
-                      )
+                      isSoloOrTeams
+                        ? 'bg-background text-foreground border border-border hover:bg-muted/30'
+                        : 'bg-accent text-accent-foreground hover:bg-accent/90'
                     )}
                     size="sm"
                   >
