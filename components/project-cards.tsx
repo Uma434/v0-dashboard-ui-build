@@ -14,6 +14,7 @@ type FilterType = "solo" | "teams" | "active" | "completed" | "disputed";
 
 export function ProjectCards() {
   const [activeFilter, setActiveFilter] = useState<FilterType>("teams");
+  const [typeFilter, setTypeFilter] = useState<"solo" | "teams">("teams");
   const [statusFilter, setStatusFilter] = useState<
     "active" | "completed" | "disputed"
   >("active");
@@ -83,8 +84,8 @@ export function ProjectCards() {
                       className={cn(
                         "text-xs sm:text-sm font-medium transition-all flex items-center gap-1 rounded-4xl",
                         isActive
-                          ? "bg-white text-muted-foreground hover:bg-accent/90 border border-accent"
-                          : "bg-accent text-muted-foreground border border-border hover:bg-muted/30",
+                          ? "bg-accent text-accent-foreground hover:bg-white border border-accent"
+                          : "bg-muted text-foreground border border-border hover:bg-muted/70",
                       )}
                       size="sm"
                     >
