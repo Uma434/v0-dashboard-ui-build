@@ -84,7 +84,7 @@ export function ProjectCards() {
                       className={cn(
                         "text-xs sm:text-sm font-medium transition-all flex items-center gap-1 rounded-4xl",
                         isActive
-                          ? "bg-accent text-accent-foreground hover:bg-white border border-accent"
+                          ? "bg-accent text-muted-foreground hover:bg-white border border-accent"
                           : "bg-muted text-foreground border border-border hover:bg-muted/70",
                       )}
                       size="sm"
