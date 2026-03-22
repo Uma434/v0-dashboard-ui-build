@@ -8,9 +8,9 @@ export default function DashboardPage() {
       <DashboardHeader />
 
       {/* Main Content */}
-      <div className="px-4 py-6 sm:px-6 lg:px-8">
+      <div className="px-4 py-8 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         {/* Page Header */}
-        <div className="space-y-2 mb-8">
+        <div className="space-y-2 mb-6 sm:mb-8">
           <h1 className="text-3xl sm:text-4xl font-bold text-balance text-foreground">
             Active Projects
           </h1>
@@ -20,7 +20,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Filter Buttons */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <ProjectFilters />
         </div>
 

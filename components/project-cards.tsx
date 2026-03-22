@@ -57,27 +57,27 @@ export function ProjectCards() {
       </div>
 
       {/* Project Card - Three Column Layout */}
-      <div className="rounded-lg border border-border bg-card/50 overflow-hidden">
+      <div className="rounded-lg border border-border bg-card overflow-hidden shadow-sm">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0 divide-y sm:divide-y-0 sm:divide-x divide-border">
           {/* Brand Identity + Landing Page Card */}
-          <Card className="border-0 rounded-none">
-            <CardContent className="p-4 sm:p-6 space-y-4">
+          <Card className="border-0 rounded-none bg-transparent">
+            <CardContent className="p-4 sm:p-6 space-y-3">
               <div className="space-y-2">
                 <div className="flex items-start justify-between gap-2">
-                  <h4 className="font-semibold text-foreground text-sm sm:text-base">
+                  <h4 className="font-semibold text-foreground text-sm sm:text-base leading-snug">
                     Brand Identity + Landing Page
                   </h4>
-                  <Badge className="bg-accent text-accent-foreground text-xs shrink-0">
+                  <Badge className="bg-accent text-accent-foreground text-xs shrink-0 whitespace-nowrap">
                     Active
                   </Badge>
                 </div>
-                <p className="text-xs sm:text-sm text-muted-foreground">
+                <p className="text-xs text-muted-foreground line-clamp-1">
                   Solo • Ara (Client) • contract id
                 </p>
               </div>
 
               <div className="space-y-2">
-                <div className="flex items-center justify-between text-xs sm:text-sm">
+                <div className="flex items-center justify-between text-xs">
                   <span className="text-muted-foreground">Milestones</span>
                   <span className="font-semibold text-foreground">1/4</span>
                 </div>
@@ -87,64 +87,61 @@ export function ProjectCards() {
               </div>
 
               <div className="pt-2 border-t border-border">
-                <p className="text-xs text-muted-foreground flex items-center gap-1">
-                  <span>Next: Logo directions</span>
-                  <span className="text-foreground">•</span>
-                  <span>due Feb 20, 2026</span>
+                <p className="text-xs text-muted-foreground">
+                  <span className="inline">Next: Logo directions</span>
+                  <span className="mx-1 text-muted-foreground">•</span>
+                  <span className="inline">due Feb 20, 2026</span>
                 </p>
               </div>
             </CardContent>
           </Card>
 
           {/* Due Date Card */}
-          <Card className="border-0 rounded-none">
-            <CardContent className="p-4 sm:p-6 space-y-4 flex flex-col">
+          <Card className="border-0 rounded-none bg-transparent">
+            <CardContent className="p-4 sm:p-6 space-y-3 flex flex-col">
               <h4 className="font-semibold text-foreground text-sm sm:text-base">
                 Due
               </h4>
 
-              <div className="space-y-3 flex-1">
+              <div className="space-y-2 flex-1">
                 <div className="flex items-center gap-2 text-sm sm:text-base">
                   <Calendar className="w-4 h-4 text-muted-foreground shrink-0" />
                   <span className="text-foreground font-medium">Mar 15, 2026</span>
                 </div>
-                <p className="text-xs sm:text-sm text-muted-foreground">
+                <p className="text-xs text-muted-foreground">
                   12 days left
                 </p>
               </div>
-
-              {/* Spacing for alignment */}
-              <div className="pt-6"></div>
             </CardContent>
           </Card>
 
           {/* Collaboration Card */}
-          <Card className="border-0 rounded-none">
-            <CardContent className="p-4 sm:p-6 space-y-4 flex flex-col">
+          <Card className="border-0 rounded-none bg-transparent">
+            <CardContent className="p-4 sm:p-6 space-y-3 flex flex-col">
               <h4 className="font-semibold text-foreground text-sm sm:text-base">
                 Collaboration
               </h4>
 
-              <div className="space-y-4 flex-1">
+              <div className="space-y-3 flex-1 flex flex-col">
                 <div className="flex items-center gap-2">
                   <div className="flex -space-x-2">
-                    <div className="w-6 h-6 rounded-full bg-blue-500 border-2 border-background flex items-center justify-center text-xs text-white font-bold">
+                    <div className="w-6 h-6 rounded-full bg-blue-500 border-2 border-background flex items-center justify-center text-xs text-white font-bold shrink-0">
                       A
                     </div>
-                    <div className="w-6 h-6 rounded-full bg-purple-500 border-2 border-background flex items-center justify-center text-xs text-white font-bold">
+                    <div className="w-6 h-6 rounded-full bg-purple-500 border-2 border-background flex items-center justify-center text-xs text-white font-bold shrink-0">
                       M
                     </div>
                   </div>
                   <div className="flex items-center gap-1 text-xs">
                     <span className="text-muted-foreground">+</span>
-                    <span className="px-1.5 py-0.5 rounded-full bg-muted text-foreground text-xs font-medium">
+                    <span className="px-2 py-1 rounded-full bg-muted text-muted-foreground text-xs font-medium">
                       12
                     </span>
                   </div>
                 </div>
 
                 <Button
-                  className="w-full gap-2 bg-accent text-accent-foreground hover:bg-accent/90 text-xs sm:text-sm"
+                  className="w-full gap-2 bg-accent text-accent-foreground hover:bg-accent/90 text-xs sm:text-sm mt-auto"
                   size="sm"
                 >
                   Open Workroom

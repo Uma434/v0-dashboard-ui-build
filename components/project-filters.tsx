@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Users, Radio } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -13,9 +14,9 @@ interface ProjectFiltersProps {
 export function ProjectFilters({ onFilterChange }: ProjectFiltersProps) {
   const [activeFilter, setActiveFilter] = useState<FilterType>('solo');
 
-  const filters: Array<{ id: FilterType; label: string }> = [
-    { id: 'solo', label: 'Solo' },
-    { id: 'teams', label: 'Teams' },
+  const filters: Array<{ id: FilterType; label: string; icon?: React.ReactNode }> = [
+    { id: 'solo', label: 'Solo', icon: <Radio className="w-4 h-4" /> },
+    { id: 'teams', label: 'Teams', icon: <Users className="w-4 h-4" /> },
     { id: 'active', label: 'Active' },
     { id: 'completed', label: 'Completed' },
     { id: 'disputed', label: 'Disputed' },
@@ -32,14 +33,16 @@ export function ProjectFilters({ onFilterChange }: ProjectFiltersProps) {
         <Button
           key={filter.id}
           onClick={() => handleFilterClick(filter.id)}
+          variant={activeFilter === filter.id ? 'default' : 'outline'}
           className={cn(
-            'text-xs sm:text-sm font-medium transition-all',
+            'text-xs sm:text-sm font-medium transition-all flex items-center gap-1.5',
             activeFilter === filter.id
-              ? 'bg-accent text-accent-foreground hover:bg-accent/90'
-              : 'bg-muted text-foreground hover:bg-muted/80'
+              ? 'bg-accent text-accent-foreground hover:bg-accent/90 border-accent'
+              : 'bg-background text-foreground hover:bg-muted/50 border-border'
           )}
           size="sm"
         >
+          {filter.icon}
           {filter.label}
         </Button>
       ))}

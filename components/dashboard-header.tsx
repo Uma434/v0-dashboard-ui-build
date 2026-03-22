@@ -1,13 +1,20 @@
 'use client';
 
-import { useState } from 'react';
-import { Search, Bell, Menu, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Search, Bell, Menu, X, Moon, Sun } from 'lucide-react';
+import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 
 export function DashboardHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const navItems = ['Home', 'Marketplace', 'Dashboard'];
 
@@ -68,6 +75,21 @@ export function DashboardHeader() {
           >
             <Search className="w-5 h-5" />
           </Button>
+
+          {/* Theme Toggle */}
+          {mounted && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            >
+              {theme === 'dark' ? (
+                <Sun className="w-5 h-5" />
+              ) : (
+                <Moon className="w-5 h-5" />
+              )}
+            </Button>
+          )}
 
           {/* Notification & Profile */}
           <Button
