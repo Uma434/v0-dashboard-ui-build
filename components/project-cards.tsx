@@ -1,24 +1,30 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { ArrowRight, Calendar, Radio, Users } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils';
+import { useState } from "react";
+import { ArrowRight, Calendar, Radio, Users } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { MessageSquare, Copy } from 'lucide-react'
 
-type FilterType = 'solo' | 'teams' | 'active' | 'completed' | 'disputed';
+import { cn } from "@/lib/utils";
+
+type FilterType = "solo" | "teams" | "active" | "completed" | "disputed";
 
 export function ProjectCards() {
-  const [activeFilter, setActiveFilter] = useState<FilterType>('teams');
+  const [activeFilter, setActiveFilter] = useState<FilterType>("teams");
 
-  const filters: Array<{ id: FilterType; label: string; icon?: React.ReactNode }> = [
-    { id: 'solo', label: 'Solo', icon: <Radio className="w-4 h-4" /> },
-    { id: 'teams', label: 'Teams', icon: <Users className="w-4 h-4" /> },
-    { id: 'active', label: 'Active' },
-    { id: 'completed', label: 'Completed' },
-    { id: 'disputed', label: 'Disputed' },
+  const filters: Array<{
+    id: FilterType;
+    label: string;
+    icon?: React.ReactNode;
+  }> = [
+    { id: "solo", label: "Solo", icon: <Radio className="w-4 h-4" /> },
+    { id: "teams", label: "Teams", icon: <Users className="w-4 h-4" /> },
+    { id: "active", label: "Active" },
+    { id: "completed", label: "Completed" },
+    { id: "disputed", label: "Disputed" },
   ];
 
   return (
@@ -29,37 +35,71 @@ export function ProjectCards() {
         <div className="px-4 sm:px-6 lg:px-8 py-4 sm:py-5 border-b border-border">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <h3 className="text-lg font-semibold text-foreground">Contracts</h3>
-            
+
             {/* Filter Buttons */}
-            <div className="flex flex-wrap gap-2">
-              {filters.map((filter) => {
-                const isSoloOrTeams = filter.id === 'solo' || filter.id === 'teams';
-                
-                return (
-                  <Button
-                    key={filter.id}
-                    onClick={() => setActiveFilter(filter.id)}
-                    variant={isSoloOrTeams ? 'outline' : 'default'}
-                    className={cn(
-                      'text-xs sm:text-sm font-medium transition-all flex items-center gap-1',
-                      isSoloOrTeams
-                        ? 'bg-background text-foreground border border-border hover:bg-muted/30'
-                        : 'bg-accent text-accent-foreground hover:bg-accent/90'
-                    )}
-                    size="sm"
-                  >
-                    {filter.icon}
-                    {filter.label}
-                  </Button>
-                );
-              })}
+            <div className="flex flex-wrap items-center gap-3">
+              {/* Solo and Teams Group */}
+              <div className="flex gap-2 bg-accent rounded-md ">
+                {filters.slice(0, 2).map((filter) => {
+                  const isActive = activeFilter === filter.id;
+                  const isSolo = filter.id === "solo";
+
+                  return (
+                    <Button
+                      key={filter.id}
+                      onClick={() => setActiveFilter(filter.id)}
+                      // variant="outline"
+                      className={cn(
+                        "text-xs sm:text-sm font-medium transition-all flex items-center gap-1",
+                        isSolo
+                          ? " border-accent text-accent-foreground bg-background hover:bg-accent/10"
+                          : isActive
+                            ? "bg-accent text-accent-foreground hover:bg-accent/90 border border-accent"
+                            : "bg-background text-foreground border border-border hover:bg-muted/30",
+                      )}
+                      size="sm"
+                    >
+                      {filter.icon}
+                      {filter.label}
+                    </Button>
+                  );
+                })}
+              </div>
+
+              {/* Separator */}
+              <div className="hidden sm:block h-6 w-px bg-border"></div>
+
+              {/* Active, Completed, Disputed Group */}
+              <div className="flex gap-2">
+                {filters.slice(2).map((filter) => {
+                  const isActive = activeFilter === filter.id;
+
+                  return (
+                    <Button
+                      key={filter.id}
+                      onClick={() => setActiveFilter(filter.id)}
+                      variant="outline"
+                      className={cn(
+                        "text-xs sm:text-sm font-medium transition-all flex items-center gap-1",
+                        isActive
+                          ? "bg-accent text-accent-foreground hover:bg-accent/90 border border-accent"
+                          : "bg-background text-foreground border border-border hover:bg-muted/30",
+                      )}
+                      size="sm"
+                    >
+                      {filter.icon}
+                      {filter.label}
+                    </Button>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
 
         {/* Search and Recent Activity Section */}
         <div className="px-4 sm:px-6 lg:px-8 py-4 sm:py-5 border-b border-border flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
-          <div className="relative flex-1 max-w-md">
+          <div className="relative flex-1 max-w-full">
             <Input
               placeholder="Search product"
               className="pl-10 bg-input text-sm"
@@ -100,14 +140,14 @@ export function ProjectCards() {
           </Button>
         </div>
 
-        {/* Project Card - Three Column Layout */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0 divide-y sm:divide-y-0 sm:divide-x divide-border">
+         {/* Project Card - Three Column Layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 p-4">
           {/* Brand Identity + Landing Page Card */}
-          <Card className="border-0 rounded-none bg-transparent">
+          <Card className="rounded-lg border border-border bg-card">
             <CardContent className="p-4 sm:p-6 space-y-3">
               <div className="space-y-2">
                 <div className="flex items-start justify-between gap-2">
-                  <h4 className="font-semibold text-foreground text-sm sm:text-base leading-snug">
+                  <h4 className="font-semibold text-accent text-sm sm:text-base leading-snug">
                     Brand Identity + Landing Page
                   </h4>
                   <Badge className="bg-accent text-accent-foreground text-xs shrink-0 whitespace-nowrap">
@@ -140,26 +180,26 @@ export function ProjectCards() {
           </Card>
 
           {/* Due Date Card */}
-          <Card className="border-0 rounded-none bg-transparent">
+          <Card className="rounded-lg border border-border bg-card">
             <CardContent className="p-4 sm:p-6 space-y-3 flex flex-col">
-              <h4 className="font-semibold text-foreground text-sm sm:text-base">
+              <h4 className="font-semibold text-accent text-sm sm:text-base">
                 Due
               </h4>
 
               <div className="space-y-2 flex-1">
                 <div className="flex items-center gap-2 text-sm sm:text-base">
                   <Calendar className="w-4 h-4 text-muted-foreground shrink-0" />
-                  <span className="text-foreground font-medium">Mar 15, 2026</span>
+                  <span className="text-foreground font-medium">
+                    Mar 15, 2026
+                  </span>
                 </div>
-                <p className="text-xs text-muted-foreground">
-                  12 days left
-                </p>
+                <p className="text-xs text-muted-foreground">12 days left</p>
               </div>
             </CardContent>
           </Card>
 
           {/* Collaboration Card */}
-          <Card className="border-0 rounded-none bg-transparent">
+          <Card className="rounded-lg border border-border bg-card">
             <CardContent className="p-4 sm:p-6 space-y-3 flex flex-col">
               <h4 className="font-semibold text-foreground text-sm sm:text-base">
                 Collaboration
@@ -167,19 +207,13 @@ export function ProjectCards() {
 
               <div className="space-y-3 flex-1 flex flex-col">
                 <div className="flex items-center gap-2">
-                  <div className="flex -space-x-2">
-                    <div className="w-6 h-6 rounded-full bg-blue-500 border-2 border-background flex items-center justify-center text-xs text-white font-bold shrink-0">
-                      A
-                    </div>
-                    <div className="w-6 h-6 rounded-full bg-purple-500 border-2 border-background flex items-center justify-center text-xs text-white font-bold shrink-0">
-                      M
-                    </div>
+                  <div className="px-3 py-1.5 rounded-full bg-gray-400 text-gray-900 text-xs font-semibold flex items-center gap-1.5">
+                    <MessageSquare className="w-4 h-4" />
+                    34
                   </div>
-                  <div className="flex items-center gap-1 text-xs">
-                    <span className="text-muted-foreground">+</span>
-                    <span className="px-2 py-1 rounded-full bg-muted text-muted-foreground text-xs font-medium">
-                      12
-                    </span>
+                  <div className="px-3 py-1.5 rounded-full bg-gray-400 text-gray-900 text-xs font-semibold flex items-center gap-1.5">
+                    <Copy className="w-4 h-4" />
+                    12
                   </div>
                 </div>
 

@@ -28,8 +28,8 @@ export function DashboardHeader() {
             <span className="text-xs font-bold text-background">H</span>
           </div>
           <span className="hidden text-lg font-bold sm:inline">
-            <span className="text-foreground">Hustle</span>
-            <span className="ml-1 text-accent">Hustle</span>
+            <span className="text-foreground">ULTRA</span>
+            <span className="ml-1 text-accent">HUSTLE</span>
           </span>
           <span className="sm:hidden text-lg font-bold">
             <span className="text-foreground">H</span>
@@ -47,7 +47,7 @@ export function DashboardHeader() {
               className={cn(
                 'text-sm font-medium',
                 item === 'Dashboard'
-                  ? 'text-accent underline'
+                  ? 'text-accent'
                   : 'text-foreground/70 hover:text-foreground'
               )}
             >
@@ -57,12 +57,12 @@ export function DashboardHeader() {
         </nav>
 
         {/* Search Bar - Desktop */}
-        <div className="hidden lg:flex relative w-64">
+        <div className="hidden lg:flex relative w-64 ">
           <Input
             placeholder="Search here"
-            className="pl-10 bg-muted/50"
+            className="bg-ring text-center rounded-4xl"
           />
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
         </div>
 
         {/* Right Icons */}
